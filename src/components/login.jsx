@@ -41,7 +41,6 @@ export const LoginPage = () => {
             <p style={{ textAlign: "center", fontFamily: 'Caveat', fontSize:"2.5rem" }}>Login</p>
             <h3>Username/Email: <br/><br/><TextField placeholder="Username/Email" padding="0.6em"  /></h3>
             <h3>Password: <br/><br/><PasswordField placeholder="Password" padding="0.6em"  /></h3>
-            <h3>Confirm Password: <br/><br/><PasswordField placeholder="Password" padding="0.6em"  /></h3>
             <br/>
             <button onClick={()=>{navigate("/home")}}>Sign In</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onClick={()=>{navigate("/register")}}>Sign Up</button>
         </div>
