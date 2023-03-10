@@ -38,8 +38,18 @@ export const LoginPage = () => {
 
 
     const Logincheck = async () => {
-        console.log(email)
-        console.log(pass)
+        console.log("email is ",email);
+        console.log("pass is ", pass);
+
+        if(email === ""){
+            window.alert("Email is necessary!!");
+            return;
+        }
+
+        if(pass === ""){
+            window.alert("Password is necessary!!")
+            return;
+        }
 
         const detailsobj = {
             email: email,
@@ -61,13 +71,12 @@ export const LoginPage = () => {
                     console.log("here i am in the login page with my data");
                     if (res.data.data === "Invalid Credentials") {
                         console.log("invalid user");
-                        // window.alert("Invalid Credentials");
+                        window.alert("Invalid Credentials");
 
                     } else {
                         console.log("valid user");
                         localStorage.setItem("access-token", res.data);
                         (window.location.href = "/home")
-
                     }
                 })
                 .catch(err => {

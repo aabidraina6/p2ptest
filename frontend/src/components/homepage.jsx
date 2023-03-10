@@ -8,7 +8,6 @@ import axios from 'axios'
 import photo1 from "./homepageutils/slide1.png";
 import photo2 from "./homepageutils/slide2.png";
 import photo3 from "./homepageutils/slide3.png";
-import { useNavigate } from "react-router-dom";
 
 const slidestyle = {
   margin: "auto",

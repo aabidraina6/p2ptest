@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -27,7 +27,6 @@ const PasswordField = styled.input.attrs(props => ({
 `
 
 export const RegistrationPage = () => {
-    const navigate = useNavigate()
 
     const [name  , setName] = useState('')
     const [phone , setPhone] = useState('')
@@ -38,6 +37,43 @@ export const RegistrationPage = () => {
     const [pass, setPass] = useState('')
 
     const RegisterPage = async () => {
+
+      if(name === ""){
+        window.alert("Name is necessary!!");
+        return;
+      }
+
+      if(phone === ""){
+        window.alert("Phone Number is necessary!!");
+        return;
+      }
+
+      if(email === ""){
+        window.alert("Email is necessary!!");
+        return;
+      }
+
+      if(pin === ""){
+        window.alert("Pin is necessary!!");
+        return;
+      }
+
+      if(state === ""){
+        window.alert("State is necessary!!");
+        return;
+      }
+
+      if(country === ""){
+        window.alert("Country is necessary!!");
+        return;
+      }
+
+      if(pass === ""){
+        window.alert("Password is necessary!!");
+        return;
+      }
+
+
       const detailsobj = {
         name:name,
         phoneno: phone,
