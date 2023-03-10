@@ -3,15 +3,22 @@ import { useNavigate  } from 'react-router-dom';
 import image from './homepageutils/images.jpeg';
   
 const divstyle = {
-  marginTop: "4%",
-  marginLeft: "9%",
-  // height: "330px",
+  // marginTop: "4%",
+  // marginLeft: "9%",
+  // // height: "330px",
+  // color: "white",
+  // width: "300px",
+  // backgroundColor: "#87CEEB",
+  // padding: "10px",
+  // fontFamily: "Arial",
+  // fontColor: "black",
+  margin: "auto",
+  height: "45%",
   color: "white",
-  width: "300px",
+  width: "90%",
   backgroundColor: "#87CEEB",
-  padding: "10px",
   fontFamily: "Arial",
-  fontColor: "black",
+  borderRadius: "30px"
 };
 
 
@@ -31,7 +38,7 @@ const FrontPage = () => {
     <div className="front-page">
     <h1 style={{ textAlign: "center", fontFamily: 'Caveat' }}>P2P APP </h1>
       <div style = {divstyle}>
-      <img src={image} style = {{borderRadius: "35px"}} alt="social media app" className="front-page__image" />
+      <img src={image} align="center" style = {{marginLeft: "17px", paddingTop: "3.5%", maxHeight: "90%", width: "91%",  align:"center", borderRadius: "35px"}} alt="social media app" className="front-page__image" />
       </div>
       <br /><br /><br /><br />
       <div align="center" className="front-page__buttons">

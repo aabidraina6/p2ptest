@@ -58,9 +58,11 @@ export const RegistrationPage = () => {
 
         if(res.data.data === "Exists"){
           window.alert("Email already registered !!"); 
+          return
         }
         if(res.data.data === "Existsph"){
           window.alert("Phone Number already registered !!"); 
+          return
         }
         else{
           window.alert("User registered successful !!"); 
