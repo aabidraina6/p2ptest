@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+  const mongoose = require("mongoose");
 
 let userdata = new mongoose.Schema(
   {
@@ -18,13 +18,13 @@ let userdata = new mongoose.Schema(
     },
     
     Pincode: {
-      type: Number,
+      type: String,
       required: true,
     },
     
     Location: {
       type: String,
-      required: true,
+      // required: true,
     },
     
     State: {
@@ -39,16 +39,21 @@ let userdata = new mongoose.Schema(
 
     Profession: {
       type: String,
-      required: true,
+      // required: true,
     },
 
     Category: {
       type: String,
-      required: true,
+      // required: true,
     },
 
     Password: {
       type: String,
+      required: true,
+    },
+
+    Friendslist: {
+      type: Array,
       required: true,
     },
   }
