@@ -1,114 +1,88 @@
-import React  , {useState}from "react";
-import "mdb-react-ui-kit/dist/css/mdb.min.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from 'styled-components'
+import axios from 'axios'
 
-import {
-  MDBInput,
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-} from "mdb-react-ui-kit";
+const TextField = styled.input.attrs(props => ({
+    type: 'text',
+    size: 30,
+}))`
+  border-radius: 3px;
+  border: 1px solid palevioletred;
+  display: block;
+  margin: 0 0 3px;
+  padding: ${props => props.padding};
+`
+
+const PasswordField = styled.input.attrs(props => ({
+    type: 'password',
+    size: 30,
+}))`
+  border-radius: 3px;
+  border: 1px solid palevioletred;
+  display: block;
+  margin: 0 0 3px;
+  align: center;
+  padding: ${props => props.padding};
+`
 
 export const RegistrationPage = () => {
+    const navigate = useNavigate()
 
-  const [name  , setName] = useState('')
-  const [phone , setPhone] = useState()
-  const [email , setEmail] = useState('')
-  const [pin , setPin] = useState('')
-  const [state , setState] = useState('')
-  const [country  , setCountry] = useState('')
+    const [name  , setName] = useState('')
+    const [phone , setPhone] = useState('')
+    const [email , setEmail] = useState('')
+    const [pin , setPin] = useState('')
+    const [state , setState] = useState('')
+    const [country  , setCountry] = useState('')
+    const [pass, setPass] = useState('')
 
-  return (
-    <div>
-          <h1 style = {{textAlign: "center" , fontFamily: 'Caveat' , color : 'white' , marginTop:'5px'}}>P2P APP </h1>  
+    const RegisterPage = async () => {
+      const detailsobj = {
+        name:name,
+        phoneno: phone,
+        email: email,
+        location: "",
+        state: state,
+        country: country,
+        profession: "",
+        category: "",
+        password: pass,
+        pincode: pin,
+      }
+      console.log(detailsobj);
+      axios
+      .post("http://localhost:4000/data/registeradd", detailsobj)
+      
+      .then(res => {
 
-      <MDBContainer fluid>
-        <MDBRow className="d-flex justify-content-center align-items-center h-100">
-          <MDBCol col="12">
-            <MDBCard
-              className="  my-5 mx-auto"
-              style={{ borderRadius: "1rem", maxWidth: "600px" }}
-            >
-              <MDBCardBody className="p-5 d-flex flex-column align-items-center mx-auto w-100">
-                <h2 className="text-dark fw-bold mb-2 text-uppercase">
-                  Sign Up
-                </h2>
-                <br></br>
-                <MDBInput
-                  style={{ color: "black"  }}
-                  wrapperClass="mb-3 mx-5 w-100"
-                  labelClass="text-dark"
-                  label="Name"
-                  id="formControlLg"
-                  type="text"
-                  size="lg"
-                  value={name}
-                />
-                <MDBInput
-                  style={{ color: "black" }}
-                  wrapperClass="mb-3 mx-5 w-100"
-                  labelClass="text-dark"
-                  label="Phone Number"
-                  id="formControlLg"
-                  type="tel"
-                  size="lg"
-                  value={phone}
-                />
-                <MDBInput
-                  style={{ color: "black" }}
-                  wrapperClass="mb-3 mx-5 w-100"
-                  labelClass="text-dark"
-                  label="email"
-                  id="formControlLg"
-                  type="email"
-                  size="lg"
-                  value={email}
-                />
-                <MDBInput
-                  style={{ color: "black" }}
-                  wrapperClass="mb-3 mx-5 w-100"
-                  labelClass="text-dark"
-                  label="Pin Code"
-                  id="formControlLg"
-                  type=""
-                  size="lg"
-                  value={pin}
-                />
-
-                <MDBInput
-                  style={{ color: "black" }}
-                  wrapperClass="mb-3 mx-5 w-100"
-                  labelClass="text-dark"
-                  label="State"
-                  id="formControlLg"
-                  type="text"
-                  size="lg"
-                  value={state}
-                />
-                <MDBInput
-                  style={{ color: "black" }}
-                  wrapperClass="mb-3 mx-5 w-100"
-                  labelClass="text-dark"
-                  label="Country"
-                  id="formControlLg"
-                  type="text"
-                  size="lg"
-                  value={country}
-                />
-
-                <p>
-                  By signing up you agree to <a href="/register">terms & conditions</a>
-                </p>
-                <MDBBtn outline className="mx-2 px-5" color="black" size="lg">
-                  Sign Up
-                </MDBBtn>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    </div>
-  );
-};
+        if(res.data.data === "Exists"){
+          window.alert("Email already registered !!"); 
+        }
+        if(res.data.data === "Existsph"){
+          window.alert("Phone Number already registered !!"); 
+        }
+        else{
+          window.alert("User registered successful !!"); 
+        (window.location.href = "/login")
+        }
+      })
+    }
+  
+    return (
+        <div className="App">
+        <div className="Login" align="center" >
+            <h2 style={{ textAlign: "center", fontFamily: 'Caveat', fontSize:"2.5rem" }}>Register</h2>
+            <h3> Name: <br/><TextField placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} padding="0.4em" /></h3>
+            <h3> Phone Number: <br/><TextField placeholder="Phone Number" value={phone} onChange={(e) => setPhone(e.target.value)} padding="0.4em" /></h3>
+            <h3> Email: <br/><TextField placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} padding="0.4em" /></h3>
+            <h3> PIN: <br/><TextField placeholder="PIN Code" value={pin} onChange={(e) => setPin(e.target.value)} padding="0.4em" /></h3>
+            <h3> State: <br/><TextField placeholder="State" value={state} onChange={(e) => setState(e.target.value)} padding="0.4em" /></h3>
+            <h3> Country: <br/><TextField placeholder="Country" value={country} onChange={(e) => setCountry(e.target.value)} padding="0.4em" /></h3>
+            <h3> Password: <br /><PasswordField placeholder="Password" value={pass} onChange={(e) => setPass(e.target.value)} padding="0.4em" /></h3>
+          
+            <button style={{cursor: "pointer" , borderRadius: "10px" ,fontSize: "15px" ,width: "100px" , height: "30px"}} onClick={()=>{RegisterPage()}}> Register </button>
+        </div>
+        </div>
+    )
+}
