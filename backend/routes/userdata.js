@@ -24,6 +24,11 @@ router.post("/registeradd", (req, res) => {
   // console.log("body is ", req.body);
 
   var temparr = []
+  temparr.push("user1")
+  temparr.push("user2")
+  temparr.push("user3")
+  temparr.push("user4")
+
   let userdata = new USERDATA({
     Name: req.body.name,
     Phoneno: req.body.phoneno,
@@ -139,6 +144,7 @@ router.post("/logincheck", (req, res) => {
         Category: user.Category,
         Password: user.Password,
         Friendslist: user.Friendslist,
+        _id: user._id
       };
 
       token = jwt.sign(payload, process.env.SECRET_OR_KEY);
@@ -153,5 +159,25 @@ router.post("/logincheck", (req, res) => {
 // *********************************************************************************
 
 
+// TO PROVIDE THE USER DETAILS TO DISPLAY IN THE Chat PAGE
+// *********************************************************************************
+router.post( "/getuserdata",(req, res) => {
+  // console.log("reached the getuserdata function here");
+  // console.log("body is here in mongodb " , req.body);
+  
+  USERDATA.find({ _id: req.body.id}, function (err, docs) {
+    if (err){
+        console.log(err);
+        res.status(400);
+    }
+    else{
+        // console.log("First function call : ", docs);
+        // console.log(typeof(docs));
+        res.status(200).json(docs);
+    }
+  });   
+}
+);
+// *********************************************************************************
 
 module.exports = router;

@@ -28,6 +28,11 @@ app.use("/data", userdatarouting);
 const authrouting = require("./routes/auth");
 app.use("/auth", authrouting);
 
+const conversationrouting = require("./routes/conversation");
+app.use("/conv", conversationrouting);
+
+const messagerouting = require("./routes/message");
+app.use("/mess", messagerouting);
 
 app.listen(PORT, () => {
   console.log("Server is running on port: " + PORT);
