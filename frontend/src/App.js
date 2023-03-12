@@ -5,6 +5,9 @@ import { LoginPage } from "./components/loginpage";
 import { NotFound } from "./components/notfoundpage";
 import { RegistrationPage } from "./components/registrationpage";
 import FrontPage  from "./components/frontpage";
+import { Chatpage1 } from "./components/chatlist";
+import { Chatboxpage } from "./components/chatboxpg";
+
 
 function App()
 {
@@ -16,6 +19,8 @@ function App()
         <Route  path="/home" exact element={<Homepage />} />
         <Route  path="/login" exact element={<LoginPage />} />
         <Route path="/register" exact element={<RegistrationPage/>} />
+        <Route path="/cl" exact element={<Chatpage1/>} />
+        <Route path="/chbx/:id" exact element={<Chatboxpage/>} />
         <Route  path="*" element={<NotFound />} />
         </Routes>
     </BrowserRouter>

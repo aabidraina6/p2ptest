@@ -3,15 +3,7 @@ import { useNavigate  } from 'react-router-dom';
 import image from './homepageutils/images.jpeg';
   
 const divstyle = {
-  // marginTop: "4%",
-  // marginLeft: "9%",
-  // // height: "330px",
-  // color: "white",
-  // width: "300px",
-  // backgroundColor: "#87CEEB",
-  // padding: "10px",
-  // fontFamily: "Arial",
-  // fontColor: "black",
+
   margin: "auto",
   height: "45%",
   color: "white",
