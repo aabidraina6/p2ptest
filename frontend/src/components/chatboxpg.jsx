@@ -52,14 +52,16 @@ export const Chatboxpage = () => {
     }, []);
 
     useEffect(() => {
+        console.log("arrivalMessage is ", arrivalMessage);
         arrivalMessage &&
-            currentChat?.members.includes(arrivalMessage.sender) &&
+            currentChat.includes(arrivalMessage.sender) &&
             setMessages((prev) => [...prev, arrivalMessage]);
     }, [arrivalMessage, currentChat]);
 
     useEffect(() => {
         socket.current.emit("addUser", user._id);
         socket.current.on("getUsers", (users) => {
+            console.log(users);
         });
     }, [user]);
 
