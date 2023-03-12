@@ -34,6 +34,7 @@ export const Chatboxpage = () => {
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
+    const [arrivalMessage, setArrivalMessage] = useState(null);
     const { id } = useParams();
     const user = userdet
 
@@ -41,19 +42,24 @@ export const Chatboxpage = () => {
     const socket = useRef();
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
-        // socket.current.on("getMessage", (data) => {
-        //   setArrivalMessage({
-        // sender: data.senderId,
-        // text: data.text,
-        // createdAt: Date.now(),
-        //   });
-        // });
+        socket.current.on("getMessage", (data) => {
+            setArrivalMessage({
+                sender: data.senderId,
+                text: data.text,
+                createdAt: Date.now(),
+            });
+        });
     }, []);
+
+    useEffect(() => {
+        arrivalMessage &&
+            currentChat?.members.includes(arrivalMessage.sender) &&
+            setMessages((prev) => [...prev, arrivalMessage]);
+    }, [arrivalMessage, currentChat]);
 
     useEffect(() => {
         socket.current.emit("addUser", user._id);
         socket.current.on("getUsers", (users) => {
-            console.log("users is -> " ,users);
         });
     }, [user]);
 
@@ -84,6 +90,27 @@ export const Chatboxpage = () => {
         getMessages();
     }, [currentChat]);
 
+    useEffect(() => {
+        const getConversations = async () => {
+            const detailsobj = {
+                cnid: id,
+            }
+
+            axios
+                .post("http://localhost:4000/conv/togetrec", detailsobj)
+                .then(res => {
+                    // console.log("success!!");
+                    // console.log("my recievre can be found" , res.data[0].members)
+                    setCurrentChat(res.data[0].members)
+                })
+                .catch(err => {
+                    console.log(" ----------> here we got an error");
+                });
+        };
+        getConversations();
+    }, [user._id]);
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const message = {
@@ -91,6 +118,18 @@ export const Chatboxpage = () => {
             text: newMessage,
             conversationId: id,
         };
+
+        const receiverId = currentChat.find(
+            (member) => member !== user._id
+        );
+
+        // console.log("wjvnwovn" , receiverId)
+
+        socket.current.emit("sendMessage", {
+            senderId: user._id,
+            receiverId,
+            text: newMessage,
+        });
 
         try {
             const res = await axios.post("http://localhost:4000/mess", message);
