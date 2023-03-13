@@ -22,17 +22,32 @@ const getUser = (userId) => {
 
 io.on("connection", (socket) => {
     //when connect
-    console.log("a user connected.");
+    // console.log("a user connected.");
     io.emit("welcome", "Thanos is deads");
 
     //take userId and socketId from user
     socket.on("addUser", (userId) => {
-        if(userId != null)
-        {
+        if (userId != null) {
             addUser(userId, socket.id);
         }
         io.emit("getUsers", users);
     });
+
+    // *********************************************************************
+    // CODE FOR WEBRTC 
+    socket.on("disconnect", () => {
+        socket.broadcast.emit("callEnded")
+    });
+
+    socket.on("callUser", ({ userToCall, signalData, from, name }) => {
+        io.to(userToCall).emit("callUser", { signal: signalData, from, name });
+    });
+
+    socket.on("answerCall", (data) => {
+        io.to(data.to).emit("callAccepted", data.signal)
+    });
+    // CODE FOR WEBRTC 
+    // *********************************************************************
 
     //send and get message
     socket.on("sendMessage", ({ senderId, receiverId, text }) => {
@@ -43,7 +58,6 @@ io.on("connection", (socket) => {
         });
     });
 
-    
     //when disconnect
     socket.on("disconnect", () => {
         console.log("a user disconnected!");
