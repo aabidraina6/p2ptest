@@ -7,7 +7,9 @@ import { RegistrationPage } from "./components/registrationpage";
 import FrontPage  from "./components/frontpage";
 import { Chatpage1 } from "./components/chatlist";
 import { Chatboxpage } from "./components/chatboxpg";
-
+import Notifications from "./components/notifications";
+import Optionspg from "./components/options";
+import Videoplayer from "./components/videoplayer";
 
 function App()
 {
@@ -21,6 +23,9 @@ function App()
         <Route path="/register" exact element={<RegistrationPage/>} />
         <Route path="/cl" exact element={<Chatpage1/>} />
         <Route path="/chbx/:id" exact element={<Chatboxpage/>} />
+        <Route path="/vid" exact element={<Videoplayer/>} />
+        <Route path="/notif" exact element={<Notifications/>} />
+        <Route path="/opt" exact element={<Optionspg/>} />
         <Route  path="*" element={<NotFound />} />
         </Routes>
     </BrowserRouter>
