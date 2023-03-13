@@ -6,6 +6,7 @@ import { AiFillPhone } from "react-icons/ai";
 import { BiPhoneOff } from "react-icons/bi";
 import { SocketContext } from '../SocketContext';
 import { GoFile } from "react-icons/go";
+import Notifications from "./notifications";
 
 const Optionspg = () => {
 
@@ -21,6 +22,7 @@ const Optionspg = () => {
                             <Grid  >
                                 <Typography gutterBottom variant="h6">Account Info</Typography>
                                 <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)} fullWidth />
+                                {console.log("me is -> " , me)}
                                 <CopyToClipboard text={me} >
                                     <Button variant="contained" color="primary" fullWidth startIcon={<GoFile fontSize="small" />}>
                                         Copy Your ID 
@@ -42,6 +44,7 @@ const Optionspg = () => {
                             </Grid>
                         </Grid>
                     </form>
+                    <Notifications />
                 </Paper>
             </Container>
     );
