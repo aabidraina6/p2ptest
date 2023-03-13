@@ -35,6 +35,8 @@ io.on("connection", (socket) => {
 
     // *********************************************************************
     // CODE FOR WEBRTC 
+    socket.emit("me", socket.id);
+    
     socket.on("disconnect", () => {
         socket.broadcast.emit("callEnded")
     });
