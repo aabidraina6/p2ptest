@@ -57,7 +57,7 @@ router.post("/registeradd", (req, res) => {
       return res.json(err);
     }
 
-    console.log("user is : --> ", user);
+    // console.log("user is : --> ", user);
 
     if (user) {
       return res.json({ data: "Existsph" });
@@ -70,7 +70,7 @@ router.post("/registeradd", (req, res) => {
           return res.json(err);
         }
 
-        console.log("user is : --> ", user);
+        // console.log("user is : --> ", user);
 
         if (user) {
           return res.json({ data: "Exists" });

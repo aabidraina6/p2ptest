@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
         members: [req.body.senderId, req.body.receiverId],
     });
 
-    console.log(newConversation)
+    // console.log(newConversation)
 
     try {
         const savedConversation = await newConversation.save();
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
 
 router.post("/getconv", async (req, res) => {
 
-    console.log(req.body.userid);
+    // console.log(req.body.userid);
     try {
         const conversation = await Conversation.find({
             members: { $in: [req.body.userid] },
@@ -42,7 +42,7 @@ router.post("/getconv", async (req, res) => {
 
 router.post("/togetrec", (req, res) => {
     // console.log("reached the getuserdata function here");
-    console.log("body is here in mongodb ", req.body.cnid);
+    // console.log("body is here in mongodb ", req.body.cnid);
 
     Conversation.find({ _id: req.body.cnid }, function (err, docs) {
         if (err) {
