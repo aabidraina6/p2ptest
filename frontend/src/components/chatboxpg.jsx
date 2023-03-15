@@ -3,8 +3,18 @@ import axios from 'axios';
 import Message from './message';
 import "./chatbox.css"
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { io } from "socket.io-client"
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
+
+// required parameter to fetch images
+const urlEndpoint = 'https://ik.imagekit.io/tb5em07q5';
+
+// optional parameters (needed for client-side upload)
+const publicKey = 'public_n1qVVkAdBe09dzJ2xXnLSzx6wxY=';
+// const authenticationEndpoint = 'http://localhost:3000/auth';
+const authenticationEndpoint = 'http://localhost:4000/authimg';
+
 
 export const Chatboxpage = () => {
 
@@ -24,6 +34,7 @@ export const Chatboxpage = () => {
                     setUserdet(res.data);
                 })
                 .catch(err => {
+
                     console.log("error here is -->  ", JSON.stringify(err));
                     localStorage.removeItem("access-token");
                     (window.location.href = "/login")
@@ -52,7 +63,7 @@ export const Chatboxpage = () => {
     }, []);
 
     useEffect(() => {
-        console.log("arrivalMessage is ", arrivalMessage);
+        // console.log("arrivalMessage is ", arrivalMessage);
         arrivalMessage &&
             currentChat.includes(arrivalMessage.sender) &&
             setMessages((prev) => [...prev, arrivalMessage]);
@@ -61,7 +72,7 @@ export const Chatboxpage = () => {
     useEffect(() => {
         socket.current.emit("addUser", user._id);
         socket.current.on("getUsers", (users) => {
-            console.log(users);
+            // console.log(users);
         });
     }, [user]);
 
@@ -90,6 +101,7 @@ export const Chatboxpage = () => {
                 });
         };
         getMessages();
+        // eslint-disable-next-line
     }, [currentChat]);
 
     useEffect(() => {
@@ -110,6 +122,7 @@ export const Chatboxpage = () => {
                 });
         };
         getConversations();
+        // eslint-disable-next-line
     }, [user._id]);
 
 
@@ -144,15 +157,76 @@ export const Chatboxpage = () => {
         // console.log(message);
     }
 
+    // IMAGE PROCESSING
+    // ********************************************************************
+    // const [imagefile, setImagefile] = useState("");
+    // const fileselectedhandler = async (e) => {
+    //     console.log("image -> ", e.target.files[0]);
+    //     setImagefile(e.target.files[0]);
+
+    // }
+
+    // const fileuploadhandler = async (e) => {
+
+    //     console.log("in fileuploadhandler -> ", imagefile);
+    //     const detailsobj2 = {
+    //         filedet: "imagefile"
+    //     }
+    //     axios
+    //         .post("http://localhost:4000/mess/imagemess", detailsobj2)
+    //         .then(res => {
+
+    //         })
+    //         .catch(err => {
+    //             console.log(" ----------> here we got an error");
+    //         });
+    // }
+
+    // ********************************************************************
     // console.log("messages are -> " , messages);
+    const onError = err => {
+        console.log("Error", err);
+    };
+
+    const onSuccess = async (res) => {
+        console.log("Success", res.url);
+        setNewMessage(res.url);
+        handleSubmit();
+        const message = {
+            sender: user._id,
+            text: res.url,
+            conversationId: id,
+        };
+
+        const receiverId = currentChat.find(
+            (member) => member !== user._id
+        );
+
+        // console.log("wjvnwovn" , receiverId)
+
+        socket.current.emit("sendMessage", {
+            senderId: user._id,
+            receiverId,
+            text: res.url,
+        });
+
+        try {
+            const res = await axios.post("http://localhost:4000/mess", message);
+            setMessages([...messages, res.data]);
+            setNewMessage("");
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <div className="App">
+
             <div className="chatBox">
                 <div className="chatBoxWrapper">
                     <div className="chatBoxTop">
                         {messages.map(m => (
-                            <Message message={m} own={m.sender === user._id} />
+                            <Message key={m._id} message={m} own={m.sender === user._id} />
                         ))}
 
                     </div>
@@ -163,13 +237,35 @@ export const Chatboxpage = () => {
                             onChange={(e) => setNewMessage(e.target.value)}
                             value={newMessage}
                         ></textarea>
+                        {/* <form action="http://localhost:4000/mess" method="POST" enctype="multipart/form-data"> */}
+                        {/* <input type="file" id="file" name="file" onChange={fileselectedhandler} /> */}
+                        {/*  <button onClick={fileuploadhandler}>Upload</button> */}
+                        {/* </form> */}
+                        {/* <IKImage
+                            urlEndpoint={urlEndpoint}
+                            path="default-image.jpg"
+                        /> */}
+
                         <button className="chatSubmitButton" onClick={handleSubmit}>
                             Send
                         </button>
+                        <IKContext
+                            urlEndpoint={urlEndpoint}
+                            publicKey={publicKey}
+                            authenticationEndpoint={authenticationEndpoint}
+                        >
+                            <p>Upload an image</p>
+                            <IKUpload
+                                fileName="test-upload.png"
+                                onError={onError}
+                                onSuccess={onSuccess}
+                            />
+                        </IKContext>
 
                     </div>
                 </div>
             </div>
+
         </div >
     );
 };

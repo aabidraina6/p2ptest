@@ -28,8 +28,8 @@ export const Chatpage1 = () => {
     }}, [userdet._id]);
 
     const [conversations, setConversations] = useState([]);
-    const [currentChat, setCurrentChat] = useState(null);
-    const [messages, setMessages] = useState([]);
+    // const [currentChat, setCurrentChat] = useState(null);
+    // const [messages, setMessages] = useState([]);
     
     const user = userdet
     // console.log("-> "  , user._id);
@@ -54,7 +54,7 @@ export const Chatpage1 = () => {
     }, [user._id]);
 
 
-    var arr = ["test1", "test2", "test3", "test4", "test5", "test6"]
+    // var arr = ["test1", "test2", "test3", "test4", "test5", "test6"]
 
     return (
         <div className="App">
