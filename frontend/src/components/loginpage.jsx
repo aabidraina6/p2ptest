@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import styled from 'styled-components'
 import { useState } from "react";
 import axios from 'axios';
-
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import { Button } from '@mui/material';
 
 const TextField = styled.input.attrs(props => ({
     type: 'text',
@@ -28,27 +30,32 @@ const PasswordField = styled.input.attrs(props => ({
   padding: ${props => props.padding};
 `
 
-
-
-
 export const LoginPage = () => {
     const navigate = useNavigate()
     const [pass, setPass] = useState('')
     const [email, setEmail] = useState('')
-
+    
+    const [helperemail, setHelperemail] = useState('')
+    const [helperpass, setHelperpass] = useState('')
+    const [invaliduser, setInvaliduser] = useState('')
 
     const Logincheck = async () => {
         console.log("email is ",email);
         console.log("pass is ", pass);
 
         if(email === ""){
-            window.alert("Email is necessary!!");
+            setHelperemail("Email is necessary!!")
             return;
+        }else{
+            setHelperemail("")
         }
 
         if(pass === ""){
-            window.alert("Password is necessary!!")
+            setHelperpass("Password is necessary!!")
             return;
+        }
+        else{
+            setHelperpass("")
         }
 
         const detailsobj = {
@@ -71,7 +78,8 @@ export const LoginPage = () => {
                     console.log("here i am in the login page with my data");
                     if (res.data.data === "Invalid Credentials") {
                         console.log("invalid user");
-                        window.alert("Invalid Credentials");
+                        setInvaliduser("Please Enter Valid Credentials")
+                        // window.alert("Invalid Credentials");
 
                     } else {
                         console.log("valid user");
@@ -95,15 +103,30 @@ return (
         <div className="Login" align="center" >
             <p style={{ textAlign: "center", fontFamily: 'Caveat', fontSize: "2.5rem" }}>Login</p>
             <br />
-            <h3> Email: <br /><br /><TextField placeholder="Username/Email" value={email} onChange={(e) => setEmail(e.target.value)} padding="0.6em" /></h3>
+            <h3> Email: <br /></h3>
+            <FormControl error variant="standard">
+            <TextField placeholder="Username/Email" value={email} onChange={(e) => setEmail(e.target.value)} padding="0.6em" />
+            <FormHelperText style = {{color: "#FA9884", fontSize: "15px"}}   id="component-error-text">{helperemail}</FormHelperText>
+            </FormControl>
+           
             <br />
-            <h3> Password: <br /><br /><PasswordField placeholder="Password" value={pass} onChange={(e) => setPass(e.target.value)} padding="0.6em" /></h3>
-            <br />
-            <button style={{ cursor: "pointer", borderRadius: "10px", fontSize: "15px", width: "100px", height: "30px" }} onClick={() => { Logincheck() }}> Login </button>
+            <h3> Password: <br /></h3>
+            <FormControl error variant="standard">
+            <PasswordField placeholder="Password" value={pass} onChange={(e) => setPass(e.target.value)} padding="0.6em" />
+            <FormHelperText style = {{color: "#FA9884", fontSize: "15px"}}   id="component-error-text">{helperpass}</FormHelperText>
+            </FormControl>
+            
+            
             <br /><br /><br />
+
+            {/* <button style={{ cursor: "pointer", borderRadius: "10px", fontSize: "15px", width: "100px", height: "30px" }} onClick={() => { Logincheck() }}> Login </button> */}
+            <Button variant='contained' style={{ width:"29%", backgroundColor:"white", color:"black"}} onClick={() => { Logincheck() }}>Login</Button>
+            <FormHelperText style = {{textAlign: "center" , color: "#FA9884", fontSize: "15px"}}   id="component-error-text">{invaliduser}</FormHelperText>
+            <br /><br />
             &nbsp;&nbsp;&nbsp;&nbsp;Don't have an Account yet?? &nbsp;
             <br /><br />
-            <button style={{ cursor: "pointer", borderRadius: "10px", fontSize: "15px", width: "100px", height: "30px" }} onClick={() => { navigate("/register") }}> Register </button>
+            {/* <button style={{ cursor: "pointer", borderRadius: "10px", fontSize: "15px", width: "100px", height: "30px" }} onClick={() => { navigate("/register") }}> Register </button> */}
+            <Button variant='contained' style={{ backgroundColor:"white", color:"black"}} onClick={() => { navigate("/register") }}>Register</Button>
             <br /><br />
         </div>
     </div>

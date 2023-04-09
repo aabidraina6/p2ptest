@@ -1,16 +1,19 @@
 import React from 'react';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import image from './homepageutils/images.jpeg';
-  
+import { Button } from '@mui/material';
+
 const divstyle = {
 
   margin: "auto",
+  align :"center",
+  marginTop:"40%",
   height: "45%",
   color: "white",
   width: "90%",
-  backgroundColor: "#87CEEB",
+  backgroundColor: "#DAF5FF",
   fontFamily: "Arial",
-  borderRadius: "30px"
+  borderRadius: "30px"
 };
 
 
@@ -27,20 +30,19 @@ const FrontPage = () => {
 
   return (
     <div className="App">
-    <div className="front-page">
-    <h1 style={{ textAlign: "center", fontFamily: 'Caveat' }}>P2P APP </h1>
-      <div style = {divstyle}>
-      <img src={image} align="center" style = {{marginLeft: "17px", paddingTop: "3.5%", maxHeight: "90%", width: "91%",  align:"center", borderRadius: "35px"}} alt="social media app" className="front-page__image" />
+      <div className="front-page">
+        <h1 style={{ textAlign: "center", fontFamily: 'Caveat', marginTop:"50%" }}>P2P APP </h1>
+        <div style={divstyle}>
+          <br />
+          <h3 style={{textAlign:"center", color:"black", fontFamily: 'MV Boli'}}>Welcome to our P2P App !!</h3>
+          <h3 style={{textAlign:"center", color:"black", fontFamily: 'MV Boli'}}>Get started here with your account</h3> 
+          <div align="center" className="front-page__buttons">
+            <Button variant='contained' style={{width:"80%", backgroundColor:"#2192FF", color:"white"}} onClick={() => { handleSignUp() }}>Sign up</Button>
+            <br /><br />
+            <Button variant='contained' style={{width:"80%", backgroundColor:"#2192FF", color:"white"}} onClick={() => { handleSignIn() }}>Sign in</Button>
+          </div>
+        </div>
       </div>
-      <br /><br /><br /><br />
-      <div align="center" className="front-page__buttons">
-      <button style={{ cursor: "pointer", borderRadius: "10px", fontSize: "15px", width: "100px", height: "30px" }} onClick={() => { handleSignUp() }}> Sign-Up </button>
-      <br /><br /><br /><br />
-      <button style={{ cursor: "pointer", borderRadius: "10px", fontSize: "15px", width: "100px", height: "30px" }} onClick={() => { handleSignIn() }}> Login </button>
-        {/* <button className="front-page__signin" onClick={handleSignIn}>Sign In</button> */}
-        {/* <button className="front-page__signup" onClick={handleSignUp}>Sign Up</button> */}
-      </div>
-    </div>
     </div>
   );
 };

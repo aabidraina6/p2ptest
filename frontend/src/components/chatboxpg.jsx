@@ -138,6 +138,7 @@ export const Chatboxpage = () => {
             (member) => member !== user._id
         );
 
+        
         // console.log("wjvnwovn" , receiverId)
 
         socket.current.emit("sendMessage", {
@@ -156,31 +157,6 @@ export const Chatboxpage = () => {
 
         // console.log(message);
     }
-
-    // IMAGE PROCESSING
-    // ********************************************************************
-    // const [imagefile, setImagefile] = useState("");
-    // const fileselectedhandler = async (e) => {
-    //     console.log("image -> ", e.target.files[0]);
-    //     setImagefile(e.target.files[0]);
-
-    // }
-
-    // const fileuploadhandler = async (e) => {
-
-    //     console.log("in fileuploadhandler -> ", imagefile);
-    //     const detailsobj2 = {
-    //         filedet: "imagefile"
-    //     }
-    //     axios
-    //         .post("http://localhost:4000/mess/imagemess", detailsobj2)
-    //         .then(res => {
-
-    //         })
-    //         .catch(err => {
-    //             console.log(" ----------> here we got an error");
-    //         });
-    // }
 
     // ********************************************************************
     // console.log("messages are -> " , messages);
@@ -261,11 +237,9 @@ export const Chatboxpage = () => {
                                 onSuccess={onSuccess}
                             />
                         </IKContext>
-
                     </div>
                 </div>
             </div>
-
         </div >
     );
 };
