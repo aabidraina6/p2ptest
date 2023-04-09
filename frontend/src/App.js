@@ -10,6 +10,7 @@ import { Chatboxpage } from "./components/chatboxpg";
 import Notifications from "./components/notifications";
 import Optionspg from "./components/options";
 import Videoplayer from "./components/videoplayer";
+import VideoChatRoom from "./components/homepageutils/webrtc";
 
 function App()
 {
@@ -17,6 +18,7 @@ function App()
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/videochat" exact element = {<VideoChatRoom/>}></Route>
         <Route  path="/" exact element={<FrontPage />} />
         <Route  path="/home" exact element={<Homepage />} />
         <Route  path="/login" exact element={<LoginPage />} />
