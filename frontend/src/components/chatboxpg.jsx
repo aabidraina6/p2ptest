@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom"
 import { io } from "socket.io-client"
 import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
+import { BiSend } from "react-icons/bi";
 
 // required parameter to fetch images
 const urlEndpoint = 'https://ik.imagekit.io/tb5em07q5';
@@ -138,6 +139,7 @@ export const Chatboxpage = () => {
             (member) => member !== user._id
         );
 
+        
         // console.log("wjvnwovn" , receiverId)
 
         socket.current.emit("sendMessage", {
@@ -156,31 +158,6 @@ export const Chatboxpage = () => {
 
         // console.log(message);
     }
-
-    // IMAGE PROCESSING
-    // ********************************************************************
-    // const [imagefile, setImagefile] = useState("");
-    // const fileselectedhandler = async (e) => {
-    //     console.log("image -> ", e.target.files[0]);
-    //     setImagefile(e.target.files[0]);
-
-    // }
-
-    // const fileuploadhandler = async (e) => {
-
-    //     console.log("in fileuploadhandler -> ", imagefile);
-    //     const detailsobj2 = {
-    //         filedet: "imagefile"
-    //     }
-    //     axios
-    //         .post("http://localhost:4000/mess/imagemess", detailsobj2)
-    //         .then(res => {
-
-    //         })
-    //         .catch(err => {
-    //             console.log(" ----------> here we got an error");
-    //         });
-    // }
 
     // ********************************************************************
     // console.log("messages are -> " , messages);
@@ -232,6 +209,7 @@ export const Chatboxpage = () => {
                     </div>
                     <div className="chatBoxBottom">
                         <textarea
+                            style={{borderRadius: "10px" , marginRight: "0px"}}
                             className="chatMessageInput"
                             placeholder="write something..."
                             onChange={(e) => setNewMessage(e.target.value)}
@@ -245,10 +223,18 @@ export const Chatboxpage = () => {
                             urlEndpoint={urlEndpoint}
                             path="default-image.jpg"
                         /> */}
+                        
+                        
 
-                        <button className="chatSubmitButton" onClick={handleSubmit}>
-                            Send
-                        </button>
+                        {   newMessage && (
+                            <button className="chatSubmitButton" onClick={handleSubmit}>
+                            <BiSend style={{fontSize: "30px" ,align: "center" , marginTop: "3px" , marginLeft: "3px"}}/>
+                            </button>
+                        )}
+
+
+                    </div>
+                    <div className="chatBoxBottom">
                         <IKContext
                             urlEndpoint={urlEndpoint}
                             publicKey={publicKey}
@@ -261,11 +247,9 @@ export const Chatboxpage = () => {
                                 onSuccess={onSuccess}
                             />
                         </IKContext>
-
                     </div>
                 </div>
             </div>
-
         </div >
     );
 };

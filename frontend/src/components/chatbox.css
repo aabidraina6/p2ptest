@@ -33,23 +33,26 @@
 }
 
 .chatBoxBottom {
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .chatMessageInput {
-  width: 70%;
-  height: 60px;
+  width: 80%;
+  height: 20px;
   padding: 10px;
 }
 
 .chatSubmitButton {
-  width: 70px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
+  margin: 0px;
+  margin-right: 1px;
   border: none;
-  border-radius: 5px;
+  border-radius: 100%;
   cursor: pointer;
   background-color: teal;
   color: white;
@@ -74,6 +77,8 @@
   cursor: default;
 }
 
+
+
 @media screen and (max-width: 768px) {
   .chatMenu {
     flex: 1;
@@ -91,3 +96,5 @@
     flex: 1px;
   }
 }
+
+

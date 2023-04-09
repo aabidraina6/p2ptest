@@ -11,6 +11,7 @@ const mystyle = {
     backgroundColor: "#87CEEB",
 }
 
+
 const vidmystyle = {
     border: "2px solid",
     height: "100px",
@@ -19,9 +20,6 @@ const vidmystyle = {
     margin: "5%",
     marginTop: "0%",
 }
-
-
-
 
 
 const Videoplayer = () => {
@@ -40,6 +38,8 @@ const Videoplayer = () => {
                     </Grid>
                 </Paper>
             )}
+
+            
 
             {callAccepted && !callEnded && (
                 <Paper style={mystyle}>
