@@ -6,6 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom"
 import { io } from "socket.io-client"
 import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
+import { BiSend } from "react-icons/bi";
 
 // required parameter to fetch images
 const urlEndpoint = 'https://ik.imagekit.io/tb5em07q5';
@@ -208,6 +209,7 @@ export const Chatboxpage = () => {
                     </div>
                     <div className="chatBoxBottom">
                         <textarea
+                            style={{borderRadius: "10px" , marginRight: "0px"}}
                             className="chatMessageInput"
                             placeholder="write something..."
                             onChange={(e) => setNewMessage(e.target.value)}
@@ -221,10 +223,18 @@ export const Chatboxpage = () => {
                             urlEndpoint={urlEndpoint}
                             path="default-image.jpg"
                         /> */}
+                        
+                        
 
-                        <button className="chatSubmitButton" onClick={handleSubmit}>
-                            Send
-                        </button>
+                        {   newMessage && (
+                            <button className="chatSubmitButton" onClick={handleSubmit}>
+                            <BiSend style={{fontSize: "30px" ,align: "center" , marginTop: "3px" , marginLeft: "3px"}}/>
+                            </button>
+                        )}
+
+
+                    </div>
+                    <div className="chatBoxBottom">
                         <IKContext
                             urlEndpoint={urlEndpoint}
                             publicKey={publicKey}
