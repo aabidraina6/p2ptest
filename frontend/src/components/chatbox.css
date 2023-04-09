@@ -41,17 +41,18 @@
 }
 
 .chatMessageInput {
-  width: 70%;
-  height: 40px;
+  width: 80%;
+  height: 20px;
   padding: 10px;
 }
 
 .chatSubmitButton {
-  width: 70px;
-  height: 40px;
-  margin: 10px;
+  width: 45px;
+  height: 45px;
+  margin: 0px;
+  margin-right: 1px;
   border: none;
-  border-radius: 5px;
+  border-radius: 100%;
   cursor: pointer;
   background-color: teal;
   color: white;
@@ -75,6 +76,8 @@
   color: rgb(224, 220, 220);
   cursor: default;
 }
+
+
 
 @media screen and (max-width: 768px) {
   .chatMenu {
